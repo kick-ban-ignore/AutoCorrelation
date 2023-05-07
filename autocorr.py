@@ -10,22 +10,35 @@ import streamlit as st
 ###
 
 # Seitentitel
+st.title("AutoCorrelation:")
 st.title("Datenanalyse und Visualisierung")
 
+explainer_text =  "Dieser Code liest eine CSV-Datei in einen Pandas DataFrame ein, führt einige Datenaufbereitungen durch und visualisiert die Daten mithilfe von Matplotlib. Das Ergebnis wird dann in eine Webanwendung in Streamlit eingebettet."
+
+# Checkbox, um Text anzuzeigen/auszublenden
+show_text = st.checkbox("Was kann die App?")
+
+# Text anzeigen, wenn Checkbox ausgewählt ist
+if show_text:
+    st.write(explainer_text)
+
 # CSV-Datei in DataFrame importieren
-data = pd.read_csv('Dummy_Data_4.csv', sep=None)
+data = pd.read_csv('Dummy_Data_2.csv', sep=None)
 
 # Spalten für horizontale Darstellung erstellen
-#col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
 # Data check
-st.subheader("Daten Vorschau")
-st.write(data.head(5))
+with col1:
+    st.subheader("Datenvorschau")
+    st.write("Die ersten 5 Zeilen werden angezeigt.")
+    st.write(data.head())
 
 # Zusammenfassung der Daten anzeigen
-st.subheader("Zusammenfassung der Daten")
-st.write(f"Die Daten enthalten {data.shape[0]} Zeilen und {data.shape[1]} Spalten.")
-st.write(data.describe())
+with col2:
+    st.subheader("Zusammenfassung")
+    st.write(f"Die Daten enthalten {data.shape[0]} Zeilen und {data.shape[1]} Spalten.")
+    st.write(data.describe())
 
 # Data Cleaning
 df = data
